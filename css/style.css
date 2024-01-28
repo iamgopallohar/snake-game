@@ -30,13 +30,17 @@ body {
 /* nomenclature - snake-element -> head-element + body-element */
 
 .snake-element {
-  border: 2px solid hsl(250, 100%, 90%);
+  --grid-row-start: 1;
+  --grid-column-start: 1;
+  grid-row-start: var(--grid-row-start);
+  grid-column-start: var(--grid-column-start);
+  border: 0.25vmin solid hsl(250, 100%, 90%);
 }
 
-.head-element {
+.head {
   background-color: hsl(70, 80%, 60%);
 }
 
-.body-element {
+.body {
   background-color: hsl(250, 80%, 60%);
 }
