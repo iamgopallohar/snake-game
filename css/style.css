@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --line-height: 1.5;
+  line-height: var(--line-height);
+}
+
+html,
+body {
+  color-scheme: dark;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#gameboard {
+  width: 90vmin;
+  height: 90vmin;
+  background-color: hsl(250, 15%, 15%);
+  display: grid;
+  grid-template-rows: repeat(30, 1fr);
+  grid-template-columns: repeat(30, 1fr);
+}
+
+/* nomenclature - snake-element -> head-element + body-element */
+
+.snake-element {
+  border: 2px solid hsl(250, 100%, 90%);
+}
+
+.head-element {
+  background-color: hsl(70, 80%, 60%);
+}
+
+.body-element {
+  background-color: hsl(250, 80%, 60%);
+}
