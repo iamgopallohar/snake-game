@@ -32,7 +32,7 @@ class Element {
 const snake = new Snake(document.getElementById("gameboard"));
 
 let lastPaintTime;
-const SPEED = 1;
+const SPEED = 12;
 function animation(currentTime) {
   window.requestAnimationFrame(animation);
   if (lastPaintTime == undefined) {
@@ -60,3 +60,35 @@ function animation(currentTime) {
 }
 
 window.requestAnimationFrame(animation);
+document.addEventListener("keydown", (e) => {
+  console.log(e.key);
+  console.log(e.key === "ArrowDown");
+  console.log(e.key === "ArrowUp");
+  console.log(e.key === "ArrowLeft");
+  console.log(e.key === "ArrowRight");
+  switch (e.key) {
+    case "ArrowUp":
+    case "w":
+    case "W":
+      snake.direction = { x: 0, y: -1 };
+      break;
+
+    case "ArrowDown":
+    case "s":
+    case "S":
+      snake.direction = { x: 0, y: 1 };
+      break;
+
+    case "ArrowLeft":
+    case "a":
+    case "A":
+      snake.direction = { x: -1, y: 0 };
+      break;
+
+    case "ArrowRight":
+    case "d":
+    case "D":
+      snake.direction = { x: 1, y: 0 };
+      break;
+  }
+});
