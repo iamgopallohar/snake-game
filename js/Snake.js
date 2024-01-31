@@ -1,61 +1,50 @@
 import Element from "./Element.js";
+import randomFoodPosition from "./randomFoodPosition.js";
 
 export default class Snake {
   constructor({ gameBoard, GRID_SIZE }) {
     this.gameBoard = gameBoard;
     this.GRID_SIZE = GRID_SIZE;
     this.foodPower = 1;
+    this.numberOfFoods = 1;
+    // the intial length of snake can be changed easily
+    this.initialSnakeLength = Math.min(2, this.GRID_SIZE - 3);
+    this.generateSnake();
+    this.food = [];
+    for (let index = 0; index < this.numberOfFoods; index++) {
+      this.createFood();
+    }
+    if (this.elements.length < GRID_SIZE / 2) {
+      this.direction = { x: 1, y: 0 };
+    } else {
+      this.direction = { x: 0, y: 1 };
+    }
+    this.gameOver = false;
+  }
+
+  generateSnake() {
     this.elements = [
       new Element({
         type: "head",
-        position: { x: 9, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 8, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 7, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 6, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 5, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 4, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 3, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 2, y: 2 },
-        board: this.gameBoard,
-      }),
-      new Element({
-        type: "body",
-        position: { x: 1, y: 2 },
+        position: {
+          x: this.initialSnakeLength + 1,
+          y: 2,
+        },
         board: this.gameBoard,
       }),
     ];
-    this.food = [];
-    this.gameOver = false;
-    this.createFood();
-    this.direction = { x: 0, y: 1 };
+    for (let index = 0; index < this.initialSnakeLength - 1; index++) {
+      this.elements.push(
+        new Element({
+          type: "body",
+          position: {
+            x: this.initialSnakeLength - index,
+            y: 2,
+          },
+          board: this.gameBoard,
+        })
+      );
+    }
   }
 
   get direction() {
@@ -116,7 +105,7 @@ export default class Snake {
         headCollision = this.checkCollisionWithHead(element);
       }
       if (collidedFoodIndex !== -1) {
-        this.incrementLength(collidedFoodIndex);
+        this.eatFood(collidedFoodIndex);
       }
       return wallCollision || headCollision;
     });
@@ -152,7 +141,7 @@ export default class Snake {
     );
   }
 
-  incrementLength(foodIndex) {
+  eatFood(foodIndex) {
     setTimeout(() => this.food.splice(foodIndex, 1)[0].element.remove());
     let lastElementPosition = this.elements[this.elements.length - 1].position;
     for (let index = 0; index < this.foodPower; index++) {
@@ -164,13 +153,14 @@ export default class Snake {
         })
       );
     }
+    this.createFood();
   }
 
   createFood() {
     this.food.push(
       new Element({
         type: "food",
-        position: { x: 6, y: 20 },
+        position: { ...randomFoodPosition(this) },
         board: this.gameBoard,
       })
     );
