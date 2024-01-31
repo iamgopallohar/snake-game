@@ -44,3 +44,7 @@ body {
 .body {
   background-color: hsl(250, 80%, 60%);
 }
+
+.food {
+  background-color: hsl(250, 0%, 100%);
+}
