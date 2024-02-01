@@ -8,19 +8,72 @@
   line-height: var(--line-height);
 }
 
+:root {
+  --action-bar-size: 2rem;
+}
+
+.roboto-mono {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 html,
 body {
   color-scheme: dark;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.game-container {
+  width: 100svmin;
+  height: 100svmin;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.game-action-bar {
+  width: 100%;
+  height: var(--action-bar-size);
+  padding: calc(var(--action-bar-size) / 2);
+  display: flex;
+  align-items: center;
+}
+
+.score-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.score-wrapper > div {
+  gap: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.trophy-icon {
+  --size: 1.5rem;
+  width: var(--size);
+  height: var(--size);
+  fill: currentColor;
+  /* opacity: 0.9; */
+}
+
 #gameboard {
-  width: 90vmin;
-  height: 90vmin;
+  width: calc(100% - var(--action-bar-size));
+  height: calc(100% - var(--action-bar-size));
   background-color: hsl(250, 15%, 15%);
   display: grid;
   grid-template-rows: repeat(30, 1fr);
@@ -34,11 +87,11 @@ body {
   --grid-column-start: 1;
   grid-row-start: var(--grid-row-start);
   grid-column-start: var(--grid-column-start);
-  border: 0.25vmin solid hsl(250, 100%, 90%);
+  /* border: 0.25vmin solid hsl(250, 100%, 90%); */
 }
 
 .head {
-  background-color: hsl(70, 80%, 60%);
+  background-color: hsl(70, 50%, 60%);
 }
 
 .body {

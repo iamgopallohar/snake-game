@@ -1,4 +1,5 @@
 import Snake from "./Snake.js";
+import { getLocalHighScore, setLocalHighScore } from "./handleLocalStorage.js";
 
 function handleKeyboardInput(e) {
   switch (e.key) {
@@ -42,12 +43,21 @@ function animation(currentTime) {
 
 let lastPaintTime;
 let animationId;
+let highScore;
 const GRID_SIZE = 30;
-const SPEED = 10;
+const SPEED = 8;
+
+let localHighScore = getLocalHighScore();
+if (localHighScore === null) {
+  setLocalHighScore(0);
+}
+highScore = Number(getLocalHighScore());
+console.log(typeof highScore, highScore);
 
 const snake = new Snake({
   gameBoard: document.getElementById("gameboard"),
   GRID_SIZE,
+  highScore,
 });
 
 animationId = window.requestAnimationFrame(animation);

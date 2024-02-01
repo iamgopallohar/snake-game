@@ -1,10 +1,14 @@
 import Element from "./Element.js";
 import randomFoodPosition from "./randomFoodPosition.js";
+import { setLocalHighScore } from "./handleLocalStorage.js";
 
 export default class Snake {
-  constructor({ gameBoard, GRID_SIZE }) {
+  constructor({ gameBoard, GRID_SIZE, highScore }) {
     this.gameBoard = gameBoard;
     this.GRID_SIZE = GRID_SIZE;
+    this.highScore = highScore; // set highscore before score
+    this.score = 0;
+    this.foodScorePower = 1;
     this.foodPower = 1;
     this.numberOfFoods = 1;
     // the intial length of snake can be changed easily
@@ -20,6 +24,21 @@ export default class Snake {
       this.direction = { x: 0, y: 1 };
     }
     this.gameOver = false;
+  }
+
+  get score() {
+    return this.scoreValue;
+  }
+
+  set score(scoreValue) {
+    this.scoreValue = scoreValue;
+    if (this.scoreValue > this.highScore) {
+      this.highScore = this.scoreValue;
+      setLocalHighScore(this.highScore);
+    }
+    document.querySelector("[data-score-display]").textContent = scoreValue;
+    document.querySelector("[data-high-score-display]").textContent =
+      this.highScore;
   }
 
   generateSnake() {
@@ -153,6 +172,7 @@ export default class Snake {
         })
       );
     }
+    this.score += this.foodScorePower;
     this.createFood();
   }
 
