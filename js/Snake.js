@@ -12,7 +12,7 @@ export default class Snake {
     this.foodPower = 1;
     this.numberOfFoods = 1;
     // the intial length of snake can be changed easily
-    this.initialSnakeLength = Math.min(2, this.GRID_SIZE - 3);
+    this.initialSnakeLength = Math.min(10, this.GRID_SIZE - 3);
     this.generateSnake();
     this.food = [];
     for (let index = 0; index < this.numberOfFoods; index++) {
@@ -36,9 +36,16 @@ export default class Snake {
       this.highScore = this.scoreValue;
       setLocalHighScore(this.highScore);
     }
-    document.querySelector("[data-score-display]").textContent = scoreValue;
-    document.querySelector("[data-high-score-display]").textContent =
-      this.highScore;
+    document
+      .querySelectorAll("[data-score-display]")
+      .forEach((scoreDisplay) => {
+        scoreDisplay.textContent = scoreValue;
+      });
+    document
+      .querySelectorAll("[data-high-score-display]")
+      .forEach((highScoreDisplay) => {
+        highScoreDisplay.textContent = this.highScore;
+      });
   }
 
   generateSnake() {
@@ -104,6 +111,7 @@ export default class Snake {
 
     if (this.gameOver === true) {
       window.cancelAnimationFrame(animationId);
+      document.querySelector(".modal").classList.add("show");
     } else {
       this.render();
     }

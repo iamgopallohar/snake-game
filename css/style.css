@@ -41,6 +41,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .game-action-bar {
@@ -91,13 +92,54 @@ body {
 }
 
 .head {
-  background-color: hsl(70, 50%, 60%);
+  background-color: hsl(184, 100%, 46%);
 }
 
 .body {
-  background-color: hsl(250, 80%, 60%);
+  background-color: hsl(248, 88%, 61%);
 }
 
 .food {
-  background-color: hsl(250, 0%, 100%);
+  background-color: hsl(275, 100%, 63%);
+}
+
+.modal {
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  --alpha: 0.5;
+  background: linear-gradient(
+    144deg,
+    hsla(275, 100%, 63%, var(--alpha)),
+    hsla(248, 88%, 61%, var(--alpha)) 50%,
+    hsla(184, 100%, 46%, var(--alpha))
+  );
+  text-align: center;
+  transform: translate(-50%, -50%) scale(0.95);
+  backdrop-filter: blur(0.25rem);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+.modal.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.play-button {
+  padding: 0.75rem 1.25rem;
+  width: 100%;
+  border: 2px solid hsl(239, 80%, 10%);
+  background-color: hsl(239, 80%, 10%);
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 0.25rem;
+  cursor: pointer;
 }

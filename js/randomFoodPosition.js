@@ -11,8 +11,6 @@ export default function randomFoodPosition(snake) {
     (food) => position.x === food.position.x && position.y === food.position.y
   );
   if (isPositionOnSnake || isPositionOnFood) {
-    console.log("food position was regenrated");
-    console.log(position);
     return randomFoodPosition(snake);
   } else {
     return position;
