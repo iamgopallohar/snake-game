@@ -10,6 +10,8 @@
 
 :root {
   --action-bar-size: 2rem;
+  --transition-duration: 250ms;
+  --transition-timing-function: ease;
 }
 
 .roboto-mono {
@@ -92,7 +94,7 @@ body {
 }
 
 .head {
-  background-color: hsl(184, 100%, 46%);
+  background-color: hsl(184, 60%, 46%);
 }
 
 .body {
@@ -103,11 +105,21 @@ body {
   background-color: hsl(275, 100%, 63%);
 }
 
+.modal-wrapper {
+  position: fixed;
+  left: 0px;
+  inset: 0px;
+  background-color: hsla(0, 0%, 0%, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-duration)
+    var(--transition-timing-function);
+  pointer-events: none;
+}
+
 .modal {
-  background-color: red;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   padding: 1rem;
   border-radius: 0.5rem;
   --alpha: 0.5;
@@ -117,26 +129,32 @@ body {
     hsla(248, 88%, 61%, var(--alpha)) 50%,
     hsla(184, 100%, 46%, var(--alpha))
   );
-  text-align: center;
-  transform: translate(-50%, -50%) scale(0.95);
+  --translate-y: 1rem;
+  --sacle: 0.95;
+  transform: translateY(var(--translate-y)) scale(var(--sacle));
   backdrop-filter: blur(0.25rem);
-  opacity: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  transition: opacity 0.1s ease, transform 0.1s ease;
+  transition: transform var(--transition-duration)
+    var(--transition-timing-function);
 }
 
-.modal.show {
-  transform: translate(-50%, -50%) scale(1);
+.modal-wrapper.show {
   opacity: 1;
+  pointer-events: all;
+}
+
+.modal-wrapper.show .modal {
+  --translate-y: 0rem;
+  --sacle: 1;
 }
 
 .play-button {
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   width: 100%;
-  border: 2px solid hsl(239, 80%, 10%);
+  border: none;
   background-color: hsl(239, 80%, 10%);
   font-family: inherit;
   font-size: inherit;

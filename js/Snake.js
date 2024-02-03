@@ -111,7 +111,7 @@ export default class Snake {
 
     if (this.gameOver === true) {
       window.cancelAnimationFrame(animationId);
-      document.querySelector(".modal").classList.add("show");
+      document.querySelector(".modal-wrapper").classList.add("show");
     } else {
       this.render();
     }

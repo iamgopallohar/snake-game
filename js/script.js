@@ -54,7 +54,9 @@ if (localHighScore === null) setLocalHighScore(0);
 highScore = Number(getLocalHighScore());
 let snake = new Snake({ gameBoard, GRID_SIZE, highScore });
 
-document.querySelector("[data-play-button]").addEventListener("click", () => {
+const playButton = document.querySelector("[data-play-button]");
+
+playButton.addEventListener("click", (e) => {
   if (snake.gameOver) {
     document.querySelectorAll(".snake-element").forEach((element) => {
       element.remove();
@@ -62,6 +64,6 @@ document.querySelector("[data-play-button]").addEventListener("click", () => {
     snake = new Snake({ gameBoard, GRID_SIZE, highScore });
   }
   animationId = window.requestAnimationFrame(animation);
-  document.querySelector(".modal").classList.remove("show");
+  document.querySelector(".modal-wrapper").classList.remove("show");
 });
 document.addEventListener("keydown", handleKeyboardInput);
