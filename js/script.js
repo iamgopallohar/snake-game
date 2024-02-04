@@ -67,3 +67,48 @@ playButton.addEventListener("click", (e) => {
   document.querySelector(".modal-wrapper").classList.remove("show");
 });
 document.addEventListener("keydown", handleKeyboardInput);
+
+// touch
+document.addEventListener("touchstart", handleTouchStart, { passive: false });
+document.addEventListener("touchmove", handleTouchMove);
+// document.addEventListener("touchmove", handleTouchMove);
+
+let startX, startY;
+
+function handleTouchStart(e) {
+  if (!e.target.classList.contains("play-button")) {
+    e.preventDefault();
+  }
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+  e.preventDefault();
+
+  const endX = e.touches[0].clientX;
+  const endY = e.touches[0].clientY;
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
+
+  const minimumSwipeLength = 30;
+  if (
+    Math.abs(deltaY) > minimumSwipeLength ||
+    Math.abs(deltaX) > minimumSwipeLength
+  ) {
+    if (Math.abs(deltaY) > 2 * Math.abs(deltaX)) {
+      if (deltaY < 0) {
+        snake.direction = { x: 0, y: -1 };
+      } else {
+        snake.direction = { x: 0, y: 1 };
+      }
+    }
+    if (Math.abs(deltaX) > 2 * Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        snake.direction = { x: -1, y: 0 };
+      } else {
+        snake.direction = { x: 1, y: 0 };
+      }
+    }
+  }
+}

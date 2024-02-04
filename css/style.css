@@ -130,7 +130,7 @@ body {
     hsla(184, 100%, 46%, var(--alpha))
   );
   --translate-y: 1rem;
-  --sacle: 0.95;
+  --sacle: 1.15;
   transform: translateY(var(--translate-y)) scale(var(--sacle));
   backdrop-filter: blur(0.25rem);
   display: flex;
