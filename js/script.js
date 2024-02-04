@@ -47,7 +47,7 @@ let lastPaintTime;
 let animationId;
 let highScore;
 const GRID_SIZE = 30;
-const SPEED = 8;
+const SPEED = 10;
 
 let localHighScore = getLocalHighScore();
 if (localHighScore === null) setLocalHighScore(0);

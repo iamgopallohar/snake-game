@@ -24,6 +24,7 @@ export default class Snake {
       this.direction = { x: 0, y: 1 };
     }
     this.gameOver = false;
+    this.render();
   }
 
   get score() {
@@ -84,7 +85,32 @@ export default class Snake {
         directionObj.y !== this.direction.y)
     ) {
       this.directionObj = directionObj;
+      // for styling eyes and borders
+      if (directionObj.x === 0 && directionObj.y === 1) {
+        this.elements[0].element.dataset.direction = "down";
+      } else if (directionObj.x === 0 && directionObj.y === -1) {
+        this.elements[0].element.dataset.direction = "up";
+      } else if (directionObj.x === 1 && directionObj.y === 0) {
+        this.elements[0].element.dataset.direction = "right";
+      } else if (directionObj.x === -1 && directionObj.y === 0) {
+        this.elements[0].element.dataset.direction = "left";
+      }
     }
+  }
+
+  setEyeBallPosition() {
+    const theta = Math.atan2(
+      this.food[0].position.y - this.elements[0].position.y,
+      this.food[0].position.x - this.elements[0].position.x
+    );
+    this.elements[0].element.style.setProperty(
+      "--eye-ball-translateX",
+      `${45 * Math.cos(theta)}%`
+    );
+    this.elements[0].element.style.setProperty(
+      "--eye-ball-translateY",
+      `${45 * Math.sin(theta)}%`
+    );
   }
 
   update(animationId) {
@@ -194,5 +220,8 @@ export default class Snake {
     );
   }
 
-  render = () => this.elements.forEach((element) => element.render());
+  render() {
+    this.elements.forEach((element) => element.render());
+    this.setEyeBallPosition();
+  }
 }

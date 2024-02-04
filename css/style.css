@@ -95,6 +95,71 @@ body {
 
 .head {
   background-color: hsl(184, 60%, 46%);
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+  --background-rotate: 0deg;
+  background-image: linear-gradient(
+    var(--background-rotate),
+    hsl(248, 88%, 61%),
+    transparent 25%,
+    transparent
+  );
+  --eye-ball-translateX: 0%;
+  --eye-ball-translateY: 0%;
+  --border-radius: 20%;
+}
+
+.snake-eye {
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.snake-eye::after {
+  content: "";
+  width: 50%;
+  height: 50%;
+  display: inline-block;
+  border-radius: 100%;
+  background-color: black;
+  transform: translate(var(--eye-ball-translateX), var(--eye-ball-translateY));
+}
+
+[data-direction="down"] .eyetl,
+[data-direction="down"] .eyetr,
+[data-direction="up"] .eyebl,
+[data-direction="up"] .eyebr,
+[data-direction="left"] .eyebr,
+[data-direction="left"] .eyetr,
+[data-direction="right"] .eyebl,
+[data-direction="right"] .eyetl {
+  opacity: 0;
+}
+
+[data-direction="up"] {
+  border-radius: var(--border-radius) var(--border-radius) 0% 0%;
+}
+
+[data-direction="down"] {
+  border-radius: 0% 0% var(--border-radius) var(--border-radius);
+  --background-rotate: 180deg;
+}
+
+[data-direction="right"] {
+  border-radius: 0% var(--border-radius) var(--border-radius) 0%;
+  --background-rotate: 90deg;
+}
+
+[data-direction="left"] {
+  border-radius: var(--border-radius) 0% 0% var(--border-radius);
+  --background-rotate: -90deg;
 }
 
 .body {
@@ -103,6 +168,7 @@ body {
 
 .food {
   background-color: hsl(275, 100%, 63%);
+  border-radius: 20%;
 }
 
 .modal-wrapper {
